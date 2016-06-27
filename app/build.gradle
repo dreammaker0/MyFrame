@@ -1,0 +1,93 @@
+apply plugin: 'com.android.application'
+apply plugin: 'com.neenbedankt.android-apt'
+
+android {
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        applicationId "com.example.lcy.myframe"
+        minSdkVersion 14
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+    signingConfigs {
+        release {
+            try {
+                storeFile file("E:\\downloads\\A_usable_project\\MyFrame\\mykey.jks")
+                storePassword KEYSTORE_PASSWORD
+                keyAlias "signkey"
+                keyPassword KEY_PASSWORD
+            }
+            catch (ex) {
+                throw new InvalidUserDataException("You should define KEYSTORE_PASSWORD and KEY_PASSWORD in gradle.properties.")
+            }
+        }
+    }
+
+
+    buildTypes {
+        /*debug {
+            applicationIdSuffix '.debug'
+            versionNameSuffix '-DEBUG'
+        }*/
+
+        /*debug {
+            signingConfig signingConfigs.release
+        }*/
+
+        release {
+            signingConfig signingConfigs.release
+            // 是否进行混淆
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    // 移除lint检查的error
+    lintOptions {
+        abortOnError false
+    }
+}
+
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    // Android官方支持包
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.android.support:design:23.3.0'
+    compile 'com.android.support:support-v4:23.3.0'
+    compile 'com.android.support:recyclerview-v7:23.3.0'
+    compile "com.android.support:cardview-v7:23.3.0"
+    // EventBus事件解耦
+    compile 'org.greenrobot:eventbus:3.0.0'
+    // AutoLayout
+    compile 'com.zhy:autolayout:1.4.3'
+    // 依赖注入
+    compile 'com.jakewharton:butterknife:8.0.1'
+    apt 'com.jakewharton:butterknife-compiler:8.0.1'
+    // 内存泄露检测工具 区分开发、发行版
+    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.4-beta2'
+    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.4-beta2'
+    // 图片框架
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    // 右滑返回
+    compile 'me.imid.swipebacklayout.lib:library:1.0.0'
+    // okHttp网络框架
+    compile 'com.lzy.net:okhttputils:1.5.2'  //可以单独使用，不需要依赖下方的扩展包
+    compile 'com.lzy.net:okhttpserver:0.1.7' //扩展了下载管理和上传管理，根据需要添加
+    // json解析
+    compile 'com.google.code.gson:gson:2.4'
+    // 日志打印工具
+    compile 'com.github.orhanobut:logger:1.12'
+    // 广告条
+    compile 'com.bigkoo:convenientbanner:2.0.5'
+    // App更新
+    compile 'com.github.yjfnypeu:UpdatePlugin:0.3'
+    // 处理6.0权限问题
+    //compile 'com.mylhyl:acp:1.0.0'
+    //common util
+    //compile 'com.wx.android.common:common:1.0.1'
+}

@@ -28,21 +28,6 @@ import butterknife.BindView;
 
 public class MainActivity extends BaseAppCompatActivity {
 
-
-    /**
-     * 包结构
-     * com.futurice.project
-     ├─ network
-     ├─ models
-     ├─ managers
-     ├─ utils
-     ├─ fragments
-     └─ views
-        ├─ adapters
-        ├─ actionbar
-        ├─ widgets
-        └─ notifications
-     */
     @BindView(R.id.toolBar)
     Toolbar mToolbar;
 

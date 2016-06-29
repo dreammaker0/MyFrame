@@ -72,7 +72,7 @@ public class MainActivity extends BaseAppCompatActivity {
                 .withActivity(this)
                 .withHeaderBackground(R.mipmap.bg_head)
                 .addProfiles(
-                        new ProfileDrawerItem().withName("你有没有梦想").withEmail("doyouhaveadream@lcy.com").withIcon(ContextCompat.getDrawable(this, R.mipmap.ic_avatar))
+                        new ProfileDrawerItem().withName("你有没有梦想").withEmail("https://github.com/chongyangliu").withIcon(ContextCompat.getDrawable(this, R.mipmap.ic_avatar))
                 )
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
@@ -82,7 +82,6 @@ public class MainActivity extends BaseAppCompatActivity {
                 })
                 .withSavedInstance(savedInstanceState)
                 .build();
-
         //if you want to update the items at a later time it is recommended to keep it in a variable
 
         //create the drawer and remember the `Drawer` result object

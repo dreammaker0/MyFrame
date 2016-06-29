@@ -15,7 +15,7 @@ import com.example.lcy.myframe.base.BaseFragment;
 import com.example.lcy.myframe.entity.CommonEntity;
 import com.example.lcy.myframe.ui.MainActivity;
 import com.example.lcy.myframe.ui.WebViewActivity;
-import com.example.lcy.myframe.ui.adapter.CommonAdapter;
+import com.example.lcy.myframe.ui.adapter.PicturesAdapter;
 import com.example.lcy.myframe.ui.presenter.CommonPresenter;
 import com.example.lcy.myframe.ui.view.CommonView;
 import com.example.lcy.myframe.util.ColorUtils;
@@ -31,7 +31,7 @@ import butterknife.BindView;
  * 与其憧憬未来，不如把握现在。
  * Created by lcy on 2016-6-28.
  */
-public class FragmentCommon extends BaseFragment implements CommonView, SwipeRefreshLayout.OnRefreshListener,
+public class FragmentPictures extends BaseFragment implements CommonView, SwipeRefreshLayout.OnRefreshListener,
         BaseQuickAdapter.OnRecyclerViewItemClickListener, BaseQuickAdapter.RequestLoadMoreListener {
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
@@ -49,16 +49,16 @@ public class FragmentCommon extends BaseFragment implements CommonView, SwipeRef
 
     private ShapeLoadingDialog mShapeLoadingDialog;
 
-    private CommonAdapter mCommonAdapter;
+    private PicturesAdapter mPicturesAdapter;
 
     private int mCurrentCounter = 0;
 
     private int mPageNo = 1;
 
-    public static FragmentCommon newInstance(String type) {
+    public static FragmentPictures newInstance(String type) {
         Bundle bundle = new Bundle();
         bundle.putString("type", type);
-        FragmentCommon fragmentCommon = new FragmentCommon();
+        FragmentPictures fragmentCommon = new FragmentPictures();
         fragmentCommon.setArguments(bundle);
         return fragmentCommon;
     }
@@ -80,15 +80,15 @@ public class FragmentCommon extends BaseFragment implements CommonView, SwipeRef
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        mCommonAdapter = new CommonAdapter(R.layout.item_common, mDatas);
-        mRecyclerView.setAdapter(mCommonAdapter);
-        mCommonAdapter.setOnRecyclerViewItemClickListener(this);
-        mCommonAdapter.setOnLoadMoreListener(this);
-        mCurrentCounter = mCommonAdapter.getData().size();
-        mCommonAdapter.openLoadMore(PAGE_SIZE, true);
+        mPicturesAdapter = new PicturesAdapter(R.layout.item_pictures, mDatas);
+        mRecyclerView.setAdapter(mPicturesAdapter);
+        mPicturesAdapter.setOnRecyclerViewItemClickListener(this);
+        mPicturesAdapter.setOnLoadMoreListener(this);
+        mCurrentCounter = mPicturesAdapter.getData().size();
+        mPicturesAdapter.openLoadMore(PAGE_SIZE, true);
 
         View customLoading = LayoutInflater.from(mContext).inflate(R.layout.custom_loading, (ViewGroup) mRecyclerView.getParent() , false);
-        mCommonAdapter.setLoadingView(customLoading);
+        mPicturesAdapter.setLoadingView(customLoading);
 
         ((MainActivity)mContext).findViewById(R.id.toolBar).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -113,7 +113,7 @@ public class FragmentCommon extends BaseFragment implements CommonView, SwipeRef
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         }
-        mCommonAdapter.notifyDataChangedAfterLoadMore(results, true);
+        mPicturesAdapter.notifyDataChangedAfterLoadMore(results, true);
 
     }
 
@@ -134,7 +134,7 @@ public class FragmentCommon extends BaseFragment implements CommonView, SwipeRef
         if (mSwipeRefreshLayout.isRefreshing()) {
             mSwipeRefreshLayout.setRefreshing(false);
         }
-        mCommonAdapter.notifyDataChangedAfterLoadMore(new ArrayList<CommonEntity.ResultsBean>(), true);
+        mPicturesAdapter.notifyDataChangedAfterLoadMore(new ArrayList<CommonEntity.ResultsBean>(), true);
         ToastUtil.showShortToast(msg);
     }
 
@@ -155,7 +155,7 @@ public class FragmentCommon extends BaseFragment implements CommonView, SwipeRef
 
     @Override
     public void onLoadMoreRequested() {
-        mCurrentCounter = mCommonAdapter.getData().size();
+        mCurrentCounter = mPicturesAdapter.getData().size();
         mPageNo = Math.ceil(mCurrentCounter / PAGE_SIZE) == 0 ? 1 : (int) Math.ceil(mCurrentCounter / PAGE_SIZE);
         mPresenter.requestData(mType, PAGE_SIZE, ++mPageNo, false);
     }

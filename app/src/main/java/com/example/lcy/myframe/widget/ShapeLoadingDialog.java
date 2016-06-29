@@ -48,6 +48,10 @@ public class ShapeLoadingDialog {
 
     }
 
+    public boolean isShowing () {
+        return mDialog.isShowing();
+    }
+
     public void dismiss(){
         mDialog.dismiss();
     }

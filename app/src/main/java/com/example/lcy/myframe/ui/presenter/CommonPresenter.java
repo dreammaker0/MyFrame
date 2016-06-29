@@ -22,8 +22,10 @@ public class CommonPresenter {
         mCommonView = commonView;
     }
 
-    public void requestData(String type, int pageSize, int pageNo) {
-        mCommonView.showProgressDialog();
+    public void requestData(String type, int pageSize, int pageNo, boolean showDialog) {
+        if (showDialog) {
+            mCommonView.showProgressDialog();
+        }
         Call<CommonEntity> call = ApiFactory.INSTANCE.getAPI().getAndroid(type, pageSize, pageNo);
         call.enqueue(new Callback<CommonEntity>() {
             @Override

@@ -11,6 +11,7 @@ import android.view.View;
 import com.example.lcy.myframe.R;
 import com.example.lcy.myframe.base.BaseAppCompatActivity;
 import com.example.lcy.myframe.ui.fragment.FragmentCommon;
+import com.example.lcy.myframe.ui.fragment.FragmentPictures;
 import com.example.lcy.myframe.util.ColorUtils;
 import com.mikepenz.fastadapter.utils.RecyclerViewCacheUtil;
 import com.mikepenz.google_material_typeface_library.GoogleMaterial;
@@ -23,8 +24,6 @@ import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
 import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
-
-
 
 import butterknife.BindView;
 
@@ -112,11 +111,11 @@ public class MainActivity extends BaseAppCompatActivity {
                         if (position != mLastPosition) {
                             switch (position) {
                                 case 1:
-                                    replaceFragment(R.id.center_frame, FragmentCommon.newInstance("全部"));
+                                    replaceFragment(R.id.center_frame, FragmentCommon.newInstance("all"));
                                     mToolbar.setTitle("全部");
                                 break;
                                 case 2:
-                                    replaceFragment(R.id.center_frame, FragmentCommon.newInstance("福利"));
+                                    replaceFragment(R.id.center_frame, FragmentPictures.newInstance("福利"));
                                     mToolbar.setTitle("福利");
                                 break;
                                 case 3:
@@ -135,6 +134,18 @@ public class MainActivity extends BaseAppCompatActivity {
                                     replaceFragment(R.id.center_frame, FragmentCommon.newInstance("前端"));
                                     mToolbar.setTitle("前端");
                                     break;
+                                case 7:
+                                    replaceFragment(R.id.center_frame, FragmentCommon.newInstance("拓展资源"));
+                                    mToolbar.setTitle("拓展资源");
+                                    break;
+                                case 8:
+                                    replaceFragment(R.id.center_frame, FragmentCommon.newInstance("App"));
+                                    mToolbar.setTitle("App");
+                                    break;
+                                case 9:
+                                    replaceFragment(R.id.center_frame, FragmentCommon.newInstance("瞎推荐"));
+                                    mToolbar.setTitle("瞎推荐");
+                                    break;
                             }
                             mLastPosition = position;
                         }
@@ -151,7 +162,8 @@ public class MainActivity extends BaseAppCompatActivity {
 
     @Override
     protected void initDatas() {
-
+        replaceFragment(R.id.center_frame, FragmentPictures.newInstance("福利"));
+        mToolbar.setTitle("福利");
     }
 
     @Override

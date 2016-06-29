@@ -8,7 +8,6 @@ import com.lzy.okhttputils.cookie.store.PersistentCookieStore;
 import com.lzy.okhttputils.model.HttpHeaders;
 import com.lzy.okhttputils.model.HttpParams;
 import com.orhanobut.logger.Logger;
-import com.squareup.leakcanary.LeakCanary;
 import com.zhy.autolayout.config.AutoLayoutConifg;
 
 
@@ -28,7 +27,7 @@ public class BaseApplication extends Application {
         AutoLayoutConifg.getInstance().useDeviceSize();
         // 初始化日志得到TAG
         Logger.init("lcy");
-        LeakCanary.install(this);
+        //LeakCanary.install(this);
         initOkHttpConfig();
 
     }

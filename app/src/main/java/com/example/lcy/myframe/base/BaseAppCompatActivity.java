@@ -4,8 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.KeyEvent;
 
 import com.example.lcy.myframe.R;
+import com.example.lcy.myframe.util.DoubleClickExitUtil;
 import com.example.lcy.myframe.util.StatusBarUtil;
 import com.zhy.autolayout.AutoLayoutActivity;
 
@@ -21,6 +23,8 @@ public abstract class BaseAppCompatActivity extends AutoLayoutActivity {
      * context
      */
     protected Context mContext = null;
+
+    private DoubleClickExitUtil mDoubleClickExitUtil;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -41,7 +45,8 @@ public abstract class BaseAppCompatActivity extends AutoLayoutActivity {
             throw new IllegalArgumentException("You must return a right contentView layout resource Id");
         }
         initDatas();
-        initViewsAndEvents();
+        initViewsAndEvents(savedInstanceState);
+        mDoubleClickExitUtil = new DoubleClickExitUtil(this);
     }
 
     @Override
@@ -55,6 +60,14 @@ public abstract class BaseAppCompatActivity extends AutoLayoutActivity {
     public void finish() {
         super.finish();
         BaseAppManager.getInstance().removeActivity(this);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK) {
+            return mDoubleClickExitUtil.onKeyDown(keyCode, event);
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override
@@ -84,7 +97,7 @@ public abstract class BaseAppCompatActivity extends AutoLayoutActivity {
     /**
      * 初始化view
      */
-    protected abstract void initViewsAndEvents();
+    protected abstract void initViewsAndEvents(Bundle savedInstanceState);
 
     /**
      * 初始化data

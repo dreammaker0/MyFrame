@@ -1,4 +1,4 @@
-package com.example.lcy.myframe.view;
+package com.example.lcy.myframe.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;

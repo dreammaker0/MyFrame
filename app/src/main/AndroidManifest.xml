@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.example.lcy.myframe">
 
+    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,13 +10,19 @@
         android:supportsRtl="true"
         android:name=".base.BaseApplication"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.MainActivity"
+            android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.WebViewActivity"
+                  android:theme="@style/MaterialDrawerTheme.Light.DarkToolbar">
+        </activity>
+
 
         <meta-data android:name="design_width" android:value="768"/>
         <meta-data android:name="design_height" android:value="1280"/>

@@ -1,17 +1,23 @@
 package com.example.lcy.myframe.base;
 
+import com.example.lcy.myframe.entity.CommonEntity;
+
+import java.util.List;
+
 /**
  * Created by lcy on 2016/2/16.
  */
 public interface IBaseView {
 
-    void requestData();
+    void setListData(List<CommonEntity.ResultsBean> results);
 
-    void showLoading();
+    void showProgressDialog();
 
-    void hideLoading();
+    void hideProgressDialog();
 
-    void showProgress();
+    void showErrorMsg(String msg);
+
+    /*void showProgress();
 
     void hideProgress();
 
@@ -19,5 +25,5 @@ public interface IBaseView {
 
     void showEmpty();
 
-    void showNetError();
+    void showNetError();*/
 }

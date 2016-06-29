@@ -1,6 +1,7 @@
 package com.example.lcy.myframe.base;
 
 import android.app.Application;
+import android.content.Context;
 
 import com.lzy.okhttputils.OkHttpUtils;
 import com.lzy.okhttputils.cookie.store.PersistentCookieStore;
@@ -16,10 +17,13 @@ import com.zhy.autolayout.config.AutoLayoutConifg;
  * Created by lcy on 2016-6-7.
  */
 public class BaseApplication extends Application {
+    public static Context mContext;
+
 
     @Override
     public void onCreate() {
         super.onCreate();
+        mContext = this;
         // 默认使用的高度是设备的可用高度，也就是不包括状态栏和底部的操作栏的，如果你希望拿设备的物理高度进行百分比化
         AutoLayoutConifg.getInstance().useDeviceSize();
         // 初始化日志得到TAG

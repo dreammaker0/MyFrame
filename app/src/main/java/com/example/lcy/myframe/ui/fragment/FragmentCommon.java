@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -80,7 +81,7 @@ public class FragmentCommon extends BaseFragment implements CommonView, SwipeRef
         mSwipeRefreshLayout.setOnRefreshListener(this);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        mCommonAdapter = new CommonAdapter(R.layout.item_common, mDatas);
+        mCommonAdapter = new CommonAdapter(mDatas);
         mRecyclerView.setAdapter(mCommonAdapter);
         mCommonAdapter.setOnRecyclerViewItemClickListener(this);
         mCommonAdapter.setOnLoadMoreListener(this);
@@ -107,6 +108,13 @@ public class FragmentCommon extends BaseFragment implements CommonView, SwipeRef
 
     @Override
     public void setListData(List<CommonEntity.ResultsBean> results) {
+        for (CommonEntity.ResultsBean resultsBean : results) {
+            if (TextUtils.equals("福利", resultsBean.getType())) {
+                resultsBean.setItemType(CommonAdapter.IMG);
+            } else {
+                resultsBean.setItemType(CommonAdapter.TEXT);
+            }
+        }
         if (mPageNo == 1) {// 刷新的
             mDatas.clear();
             if (mSwipeRefreshLayout.isRefreshing()) {

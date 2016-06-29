@@ -1,5 +1,7 @@
 package com.example.lcy.myframe.entity;
 
+import com.chad.library.adapter.base.entity.MultiItemEntity;
+
 import java.util.List;
 
 /**
@@ -44,7 +46,7 @@ public class CommonEntity {
         this.results = results;
     }
 
-    public static class ResultsBean {
+    public static class ResultsBean extends MultiItemEntity {
         private String _id;
         private String createdAt;
         private String desc;

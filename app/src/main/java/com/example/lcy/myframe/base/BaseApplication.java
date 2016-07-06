@@ -8,7 +8,7 @@ import com.lzy.okhttputils.cookie.store.PersistentCookieStore;
 import com.lzy.okhttputils.model.HttpHeaders;
 import com.lzy.okhttputils.model.HttpParams;
 import com.orhanobut.logger.Logger;
-import com.zhy.autolayout.config.AutoLayoutConifg;
+import com.squareup.leakcanary.LeakCanary;
 
 
 /**
@@ -24,10 +24,10 @@ public class BaseApplication extends Application {
         super.onCreate();
         mContext = this;
         // 默认使用的高度是设备的可用高度，也就是不包括状态栏和底部的操作栏的，如果你希望拿设备的物理高度进行百分比化
-        AutoLayoutConifg.getInstance().useDeviceSize();
+        //AutoLayoutConifg.getInstance().useDeviceSize();
         // 初始化日志得到TAG
         Logger.init("lcy");
-        //LeakCanary.install(this);
+        LeakCanary.install(this);
         initOkHttpConfig();
 
     }

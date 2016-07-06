@@ -73,6 +73,7 @@ public abstract class BaseAppCompatActivity extends AutoLayoutActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        BaseAppManager.getInstance().removeActivity(this);
     }
 
     protected void setStatusBar() {

@@ -73,7 +73,7 @@ public class FragmentCommon extends BaseFragment implements CommonView, SwipeRef
     protected void initViewsAndEvents(View view) {
         mShapeLoadingDialog = new ShapeLoadingDialog(getContext());
         mShapeLoadingDialog.setLoadingText("加载中...");
-        mPresenter= new CommonPresenter(this);
+        mPresenter = new CommonPresenter(this);
         mSwipeRefreshLayout.setColorSchemeColors(ColorUtils.randomColor(),
                 ColorUtils.randomColor(),
                 ColorUtils.randomColor(),
@@ -88,10 +88,10 @@ public class FragmentCommon extends BaseFragment implements CommonView, SwipeRef
         mCurrentCounter = mCommonAdapter.getData().size();
         mCommonAdapter.openLoadMore(PAGE_SIZE, true);
 
-        View customLoading = LayoutInflater.from(mContext).inflate(R.layout.custom_loading, (ViewGroup) mRecyclerView.getParent() , false);
+        View customLoading = LayoutInflater.from(mContext).inflate(R.layout.custom_loading, (ViewGroup) mRecyclerView.getParent(), false);
         mCommonAdapter.setLoadingView(customLoading);
 
-        ((MainActivity)mContext).findViewById(R.id.toolBar).setOnClickListener(new View.OnClickListener() {
+        ((MainActivity) mContext).findViewById(R.id.toolBar).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mRecyclerView.smoothScrollToPosition(0);
@@ -158,7 +158,7 @@ public class FragmentCommon extends BaseFragment implements CommonView, SwipeRef
         Intent intent = new Intent(mContext, WebViewActivity.class);
         intent.putExtra("url", mDatas.get(i).getUrl());
         intent.putExtra("title", mType);
-        mContext.startActivity(intent);
+        startActivity(intent);
     }
 
     @Override

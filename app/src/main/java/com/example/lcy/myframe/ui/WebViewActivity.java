@@ -5,8 +5,10 @@ import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
@@ -17,6 +19,8 @@ import android.widget.ProgressBar;
 
 import com.example.lcy.myframe.R;
 import com.example.lcy.myframe.base.BaseAppCompatActivity;
+
+import java.lang.reflect.Field;
 
 import butterknife.BindView;
 
@@ -52,6 +56,8 @@ public class WebViewActivity extends BaseAppCompatActivity {
 
     @Override
     protected void initViewsAndEvents(Bundle savedInstanceState) {
+        //setConfigCallback((WindowManager)getApplicationContext().getSystemService(Context.WINDOW_SERVICE));
+
         mToolbar.setTitleTextColor(Color.WHITE);
         mToolbar.setTitle(mTitle);
         setSupportActionBar(mToolbar);
@@ -148,10 +154,53 @@ public class WebViewActivity extends BaseAppCompatActivity {
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        //setConfigCallback(null);
+        System.exit(0);
+    }
+
+    @Override
+    //设置回退
+    //覆盖Activity类的onKeyDown(int keyCoder,KeyEvent event)方法
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && mWebView.canGoBack()) {
+            mWebView.goBack(); //goBack()表示返回WebView的上一页面
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             finish();
         }
         return true;
+    }
+
+    /**
+     * V
+     * 解决webView内存泄露
+     *
+     * @param windowManager
+     */
+    public void setConfigCallback(WindowManager windowManager) {
+        try {
+            Field field = WebView.class.getDeclaredField("mWebViewCore");
+            field = field.getType().getDeclaredField("mBrowserFrame");
+            field = field.getType().getDeclaredField("sConfigCallback");
+            field.setAccessible(true);
+            Object configCallback = field.get(null);
+
+            if (null == configCallback) {
+                return;
+            }
+
+            field = field.getType().getDeclaredField("mWindowManager");
+            field.setAccessible(true);
+            field.set(configCallback, windowManager);
+        } catch (Exception e) {
+        }
     }
 }
